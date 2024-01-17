@@ -296,6 +296,8 @@ def read_initial_values(f, num_vars, num_cons):
 
     if num_cons > 0:
         cons_dual = read_vec(f, num_cons)
+    else:
+        cons_dual = np.zeros((0,))
 
     var_dual = read_vec(f, num_vars)
 
