@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyqplib"
-version = "0.1.0"
+version = "0.1.1"
 description = "Package to read and evaluate QPLIB instance files"
 authors = ["Christoph Hansknecht <christoph.hansknecht@tu-clausthal.de>"]
 readme = "README.md"
