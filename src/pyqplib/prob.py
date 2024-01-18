@@ -55,6 +55,8 @@ class Problem:
 
     @property
     def cons_lb(self) -> np.ndarray:
+        if self._constraints is None:
+            return np.array([])
         return self._constraints.lb
 
     @property
@@ -71,6 +73,8 @@ class Problem:
 
     @property
     def cons_ub(self) -> np.ndarray:
+        if self._constraints is None:
+            return np.array([])
         return self._constraints.ub
 
     def obj_val(self, x: np.ndarray) -> float:
