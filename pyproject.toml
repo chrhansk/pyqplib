@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "pyqplib"
-version = "0.1.4"
+version = "0.1.5"
 description = "Package to read and evaluate QPLIB instance files"
 authors = ["Christoph Hansknecht <christoph.hansknecht@tu-clausthal.de>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.14"
+python = ">=3.10,<4.0"
 scipy = ">=1.14"
 numpy = ">=2.0"
 
