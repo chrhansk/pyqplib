@@ -40,7 +40,6 @@ class LowerMatrix:
 
         for row, col, val in zip(subdiag_rows, subdiag_cols, subdiag_vals):
             p[row] += val * x[col]
-            p[col] += val * x[row]
 
         diag_vals = self.diag_vals
         diag_rows = self.diag_rows
