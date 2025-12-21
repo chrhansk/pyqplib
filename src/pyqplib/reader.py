@@ -318,13 +318,12 @@ def open_file(filename):
 
     path, extension = os.path.splitext(filename)
 
-
     if extension == ".zip":
         basename = os.path.basename(path)
         return zipfile.Path(filename, at=basename).open("r")
 
     return open(filename, "r")
-    
+
 
 def _read_from(filename, read_problem):
     logger.info(f"Reading QPLIB instance from {filename}")
