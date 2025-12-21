@@ -318,14 +318,11 @@ def open_file(filename):
 
     path, extension = os.path.splitext(filename)
 
-    if extension == ".qplib":
-        return open(filename, "r")
-
-    elif extension == ".zip":
+    if extension == ".zip":
         basename = os.path.basename(path)
         return zipfile.Path(filename, at=basename).open("r")
 
-    raise ValueError(f"Unknown extension {extension}")
+    return open(filename, "r")
 
 
 def _read_from(filename, read_problem):
