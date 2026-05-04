@@ -34,7 +34,7 @@ class Constraints(ABC):
 
 
 class LinearConstraints(Constraints):
-    def __init__(self, jac: sp.spmatrix, lb: np.ndarray, ub: np.ndarray):
+    def __init__(self, jac: sp.sparse.spmatrix, lb: np.ndarray, ub: np.ndarray):
         self.num_cons, self.num_vars = jac.shape
         self.mat = jac
         super().__init__(lb, ub)
