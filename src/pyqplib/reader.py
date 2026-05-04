@@ -102,7 +102,7 @@ def read_objective(sense, f, num_vars, obj_type):
 
     offset = float(next_line(f))
 
-    return QuadraticObjective(sense, rows, cols, entries, lin, offset)
+    return QuadraticObjective(sense, rows, cols, entries, lin, offset, obj_type)
 
 
 def read_cons_quad(f, num_vars, num_cons):

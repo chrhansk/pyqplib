@@ -5,6 +5,7 @@ import scipy as sp
 
 from pyqplib.lower_mat import LowerMatrix
 from pyqplib.util import sparse_zero
+from pyqplib.types import ProblemObjType
 
 
 class Objective(ABC):
@@ -21,6 +22,11 @@ class Objective(ABC):
 
     @abstractmethod
     def hess(self, x: np.ndarray) -> sp.sparse.spmatrix:
+        raise NotImplementedError()
+
+    @property
+    @abstractmethod
+    def is_convex(self) -> bool:
         raise NotImplementedError()
 
 
@@ -41,9 +47,20 @@ class LinearObjective(Objective):
 
         return sparse_zero((num_vars, num_vars))
 
+    @property
+    def is_convex(self):
+        return True
+
 
 class QuadraticObjective(Objective):
-    def __init__(self, sense, rows, cols, entries, grad, offset):
+    def __init__(self,
+                 sense,
+                 rows: np.ndarray,
+                 cols: np.ndarray,
+                 entries: np.ndarray,
+                 grad: np.ndarray,
+                 offset: float,
+                 obj_type: ProblemObjType):
         super().__init__(sense)
         self.lin = grad
         self.offset = offset
@@ -51,6 +68,8 @@ class QuadraticObjective(Objective):
         (num_vars,) = grad.shape
 
         self.mat = LowerMatrix(num_vars, rows, cols, entries)
+
+        self._type = obj_type
 
     def eval(self, x):
         obj = 0.5 * np.dot(x, self.mat.dot(x))
@@ -63,3 +82,7 @@ class QuadraticObjective(Objective):
 
     def hess(self, x):
         return self.mat.full()
+
+    @property
+    def is_convex(self):
+        return self._type.convex
