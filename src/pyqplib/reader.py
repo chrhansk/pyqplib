@@ -80,7 +80,7 @@ def read_vec(f, dim, dtype=float):
 
 
 def read_hess(f, num_vars):
-    (rows, cols, entries) = read_matrix(f, num_vars, num_vars)
+    rows, cols, entries = read_matrix(f, num_vars, num_vars)
 
     assert (rows >= cols).all()
 
@@ -96,13 +96,13 @@ def read_objective(sense, f, num_vars, obj_type):
 
         return LinearObjective(sense, lin, offset)
 
-    (rows, cols, entries) = read_hess(f, num_vars)
+    rows, cols, entries = read_hess(f, num_vars)
 
     lin = read_vec(f, num_vars)
 
     offset = float(next_line(f))
 
-    return QuadraticObjective(sense, rows, cols, entries, lin, offset)
+    return QuadraticObjective(sense, rows, cols, entries, lin, offset, obj_type)
 
 
 def read_cons_quad(f, num_vars, num_cons):
@@ -156,7 +156,7 @@ def read_cons(f, num_vars, num_cons, cons_type):
         hess = read_cons_quad(f, num_vars, num_cons)
 
     # linear terms
-    (rows, cols, entries) = read_matrix(f, num_cons, num_vars)
+    rows, cols, entries = read_matrix(f, num_cons, num_vars)
 
     jac = scipy.sparse.coo_matrix((entries, (rows, cols)), shape=(num_cons, num_vars))
 
@@ -257,6 +257,8 @@ def convert_var_flag(var_flag):
 def convert_obj_flag(obj_flag):
     if obj_flag == "L":
         return ProblemObjType.LINEAR
+    elif obj_flag == "D":
+        return ProblemObjType.CONVEX_SYMM
     elif obj_flag == "C":
         return ProblemObjType.CONVEX
     elif obj_flag == "Q":
@@ -365,9 +367,9 @@ def _read_from(filename, read_problem):
 
         obj = read_objective(sense, f, num_vars, obj_type)
 
-        (inf, cons) = read_cons(f, num_vars, num_cons, cons_type)
+        inf, cons = read_cons(f, num_vars, num_cons, cons_type)
 
-        (var_lb, var_ub) = read_varbounds(f, num_vars, var_type, inf)
+        var_lb, var_ub = read_varbounds(f, num_vars, var_type, inf)
 
         var_types = read_vartypes(f, var_type, var_lb, var_ub)
 

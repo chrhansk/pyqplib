@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import List, Tuple
 
 import numpy as np
 import scipy as sp
@@ -34,8 +35,8 @@ class Constraints(ABC):
 
 
 class LinearConstraints(Constraints):
-    def __init__(self, jac, lb, ub):
-        (self.num_cons, self.num_vars) = jac.shape
+    def __init__(self, jac: sp.sparse.spmatrix, lb: np.ndarray, ub: np.ndarray):
+        self.num_cons, self.num_vars = jac.shape
         self.mat = jac
         super().__init__(lb, ub)
 
@@ -55,7 +56,14 @@ class LinearConstraints(Constraints):
 
 
 class QuadraticConstraints(Constraints):
-    def __init__(self, num_vars, hess, jac, lb, ub):
+    def __init__(
+        self,
+        num_vars: int,
+        hess: List[Tuple[np.ndarray, np.ndarray, np.ndarray]],
+        jac: sp.sparse.spmatrix,
+        lb: np.ndarray,
+        ub: np.ndarray,
+    ):
         self.hess_mats = [LowerMatrix(num_vars, *values) for values in hess]
         self.mat = jac
         super().__init__(lb, ub)

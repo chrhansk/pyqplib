@@ -43,7 +43,7 @@ class Problem:
 
     @property
     def name(self) -> str:
-        return self.desc.name
+        return self._desc.name
 
     @property
     def description(self) -> ProblemDescription:
