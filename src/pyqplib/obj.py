@@ -53,14 +53,16 @@ class LinearObjective(Objective):
 
 
 class QuadraticObjective(Objective):
-    def __init__(self,
-                 sense,
-                 rows: np.ndarray,
-                 cols: np.ndarray,
-                 entries: np.ndarray,
-                 grad: np.ndarray,
-                 offset: float,
-                 obj_type: ProblemObjType):
+    def __init__(
+        self,
+        sense,
+        rows: np.ndarray,
+        cols: np.ndarray,
+        entries: np.ndarray,
+        grad: np.ndarray,
+        offset: float,
+        obj_type: ProblemObjType,
+    ):
         super().__init__(sense)
         self.lin = grad
         self.offset = offset
