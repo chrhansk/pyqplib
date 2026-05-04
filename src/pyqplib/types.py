@@ -22,6 +22,7 @@ class VarType(Enum):
 
 class ProblemObjType(Enum):
     LINEAR = auto()
+    CONVEX_SYMM = auto()
     CONVEX = auto()
     GENERAL = auto()
 

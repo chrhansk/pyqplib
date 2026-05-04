@@ -257,6 +257,8 @@ def convert_var_flag(var_flag):
 def convert_obj_flag(obj_flag):
     if obj_flag == "L":
         return ProblemObjType.LINEAR
+    elif obj_flag == "D":
+        return ProblemObjType.CONVEX_SYMM
     elif obj_flag == "C":
         return ProblemObjType.CONVEX
     elif obj_flag == "Q":
