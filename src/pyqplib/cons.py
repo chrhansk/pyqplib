@@ -35,7 +35,7 @@ class Constraints(ABC):
 
 class LinearConstraints(Constraints):
     def __init__(self, jac, lb, ub):
-        (self.num_cons, self.num_vars) = jac.shape
+        self.num_cons, self.num_vars = jac.shape
         self.mat = jac
         super().__init__(lb, ub)
 

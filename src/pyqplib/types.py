@@ -28,9 +28,11 @@ class ProblemObjType(Enum):
 
     @property
     def convex(self):
-        return self in [ProblemObjType.LINEAR,
-                        ProblemObjType.CONVEX_SYMM,
-                        ProblemObjType.SYMM]
+        return self in [
+            ProblemObjType.LINEAR,
+            ProblemObjType.CONVEX_SYMM,
+            ProblemObjType.SYMM,
+        ]
 
 
 class ProblemConsType(Enum):
