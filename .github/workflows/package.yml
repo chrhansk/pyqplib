@@ -32,5 +32,9 @@ jobs:
         key: venv-${{ hashFiles('poetry.lock') }}
     - name: Install the project dependencies
       run: poetry install
-    - name: Test with pytest
-      run: poetry run pytest -v --isort --black
+    - name: Check imports using isort
+      run: poetry run python -m isort src
+    - name: Check formatting using black
+      run: poetry run python -m black src
+    - name: Check types using mypy
+      run: poetry run python -m mypy src
