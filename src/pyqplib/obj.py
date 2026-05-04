@@ -4,8 +4,8 @@ import numpy as np
 import scipy as sp
 
 from pyqplib.lower_mat import LowerMatrix
-from pyqplib.util import sparse_zero
 from pyqplib.types import ProblemObjType
+from pyqplib.util import sparse_zero
 
 
 class Objective(ABC):
