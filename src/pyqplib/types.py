@@ -40,4 +40,5 @@ class ProblemConsType(Enum):
     BOXED = auto()
     LINEAR = auto()
     CONVEX = auto()
+    CONVEX_SYMM = auto()
     GENERAL = auto()

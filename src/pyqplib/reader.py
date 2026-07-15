@@ -150,7 +150,9 @@ def read_cons(f, num_vars, num_cons, cons_type):
         inf = read_inf(f)
         return (inf, None)
 
-    is_quad = cons_type in [ProblemConsType.CONVEX, ProblemConsType.GENERAL]
+    is_quad = cons_type in [ProblemConsType.CONVEX,
+                            ProblemConsType.CONVEX_SYMM,
+                            ProblemConsType.GENERAL]
 
     if is_quad:
         hess = read_cons_quad(f, num_vars, num_cons)
@@ -240,44 +242,49 @@ def read_varbounds(f, num_vars, var_type, inf):
 
 
 def convert_var_flag(var_flag):
-    if var_flag == "C":
-        return ProblemVarType.CONTINUOUS
-    elif var_flag == "B":
-        return ProblemVarType.BINARY
-    elif var_flag == "M":
-        return ProblemVarType.MIXED_BINARY
-    elif var_flag == "I":
-        return ProblemVarType.INTEGER
-    elif var_flag == "G":
-        return ProblemVarType.GENERAL
+    match var_flag:
+        case "C":
+            return ProblemVarType.CONTINUOUS
+        case "B":
+            return ProblemVarType.BINARY
+        case "M":
+            return ProblemVarType.MIXED_BINARY
+        case "I":
+            return ProblemVarType.INTEGER
+        case "G":
+            return ProblemVarType.GENERAL
 
     raise ValueError(f"Unknown variable flag {var_flag}")
 
 
 def convert_obj_flag(obj_flag):
-    if obj_flag == "L":
-        return ProblemObjType.LINEAR
-    elif obj_flag == "D":
-        return ProblemObjType.CONVEX_SYMM
-    elif obj_flag == "C":
-        return ProblemObjType.CONVEX
-    elif obj_flag == "Q":
-        return ProblemObjType.GENERAL
+    match obj_flag:
+        case "L":
+            return ProblemObjType.LINEAR
+        case "D":
+            return ProblemObjType.CONVEX_SYMM
+        case "C":
+            return ProblemObjType.CONVEX
+        case "Q":
+            return ProblemObjType.GENERAL
 
     raise ValueError(f"Unknown objective flag {obj_flag}")
 
 
 def convert_cons_flag(cons_flag):
-    if cons_flag == "N":
-        return ProblemConsType.UNCONSTRAINED
-    elif cons_flag == "B":
-        return ProblemConsType.BOXED
-    elif cons_flag == "L":
-        return ProblemConsType.LINEAR
-    elif cons_flag == "C":
-        return ProblemConsType.CONVEX
-    elif cons_flag == "Q":
-        return ProblemConsType.GENERAL
+    match cons_flag:
+        case "N":
+            return ProblemConsType.UNCONSTRAINED
+        case "B":
+            return ProblemConsType.BOXED
+        case "L":
+            return ProblemConsType.LINEAR
+        case "D":
+            return ProblemConsType.CONVEX_SYMM
+        case "C":
+            return ProblemConsType.CONVEX
+        case "Q":
+            return ProblemConsType.GENERAL
 
     raise ValueError(f"Unknown constraint flag {cons_flag}")
 
